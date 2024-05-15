@@ -15,17 +15,46 @@ interface Input {
   units: string[];
 }
 
-interface Course {
+// interface Course {
+//   id: string;
+//   name:string,
+//   image:string,
+//   units:string[],
+//   chapter:string[],
+//   question:string[],
+//   youtubeSearchQuery:string,
+//   videoId:string,
+//   summary:string
+// }
+interface Question{
   id: string;
-  name:string,
-  image:string,
-  units:string[],
-  chapters:string[],
-  youtubeSearchQuery:string,
-  videoId:string,
-  summary:string
+  question:string;
+  answer:string;
+  options:string;
 }
 
+interface Chapter {
+  id: string;
+  name: string;
+  youtubeSearchQuery: string;
+  videoId: string | null;
+  summary: string | null;
+  question:Question[]
+}
+
+interface Units {
+  id: string;
+  name: string;
+  chapter: Chapter[];
+}
+
+interface Course {
+  id: string;
+  name: string;
+  image: string;
+  user?: number | any;
+  units: Units[] | any;
+}
 const authApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     retrieveUser: builder.query<User, void>({
@@ -99,7 +128,7 @@ const authApiSlice = apiSlice.injectEndpoints({
     }),
     getChapterInfo: builder.mutation({
       query: ({ chapterId }: { chapterId: string }) => ({
-        url: '/api/chapter/getInfo/',
+        url: '/course/chaptergetinfo/',
         method: 'POST',
         body: { chapterId },
       }),

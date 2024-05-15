@@ -1,35 +1,28 @@
-// "use client";
-// import { cn } from "@/lib/utils";
-// import { useMutation } from "@tanstack/react-query";
-// import axios from "axios";
-// import { useToast } from "@/components/ui/use-toast";
-// import { Loader2 } from "lucide-react";
-// import { Chapters } from "./confirmChapters"; // Fixed the typo in the import statement
 
 "use client";
 import { cn } from "@/lib/utils";
-import { useToast } from "@/components/ui/use-toast";
+// import { useToast } from "@/components/ui/use-toast";
+import {toast} from "react-toastify"
 import { Loader2 } from "lucide-react";
-import { Chapters } from "./confirmChapters"; 
+import { Chapter } from "./confirmChapters"; 
 import React from "react";
 import { useGetChapterInfoMutation } from "@/redux/features/authApiSlice"; 
 
 type Props = {
-  chapter: Chapters;
+  chapter: Chapter;
   chapterIndex: number;
   completedChapters: Set<String>;
   setCompletedChapters: React.Dispatch<React.SetStateAction<Set<String>>>;
 };
 
 export type ChapterCardHandler = {
-  triggerLoad: () => void;
+  triggerLoad: () => Promise<void>;
 };
 
 const ChapterCard = React.forwardRef<ChapterCardHandler, Props>(
   ({ chapter, chapterIndex, setCompletedChapters, completedChapters }, ref) => {
-    const { toast } = useToast();
+    // const { toast } = useToast();
     const [success, setSuccess] = React.useState<boolean | null>(null);
-    // Using the generated mutation hook from the store
     const [getChapterInfo, { isLoading }] = useGetChapterInfoMutation();
 
     const addChapterIdToSet = React.useCallback(() => {
@@ -54,7 +47,6 @@ const ChapterCard = React.forwardRef<ChapterCardHandler, Props>(
           return;
         }
         try {
-          // Call the mutation hook to fetch chapter info
           const response = await getChapterInfo({ chapterId: chapter.id });
           if ('data' in response) {
             const { data } = response;
@@ -63,22 +55,14 @@ const ChapterCard = React.forwardRef<ChapterCardHandler, Props>(
           } else {
             const { error } = response;
             console.error(error);
-            setSuccess(false);
-            toast({
-              title: "Error",
-              description: "There was an error loading your chapter",
-              variant: "destructive",
-            });
+            setSuccess(false);''
+            toast.error("There was an error loading your chapter");
             addChapterIdToSet();
           }
         } catch (error) {
           console.error(error);
           setSuccess(false);
-          toast({
-            title: "Error",
-            description: "There was an error loading your chapter",
-            variant: "destructive",
-          });
+          toast.error("There was an error loading your chapter");
           addChapterIdToSet();
         }
       },
@@ -94,7 +78,6 @@ const ChapterCard = React.forwardRef<ChapterCardHandler, Props>(
         })}
       >
         <h5>{chapter.name}</h5>
-        {/* Display loader based on isLoading */}
         {isLoading && <Loader2 className="animate-spin" />}
       </div>
     );
@@ -105,10 +88,13 @@ ChapterCard.displayName = "ChapterCard";
 
 export default ChapterCard;
 
-
-
-
-
+// "use client";
+// import { cn } from "@/lib/utils";
+// import { useToast } from "@/components/ui/use-toast";
+// import { Loader2 } from "lucide-react";
+// import { Chapters } from "./confirmChapters"; 
+// import React from "react";
+// import { useGetChapterInfoMutation } from "@/redux/features/authApiSlice"; 
 
 // type Props = {
 //   chapter: Chapters;
@@ -124,15 +110,9 @@ export default ChapterCard;
 // const ChapterCard = React.forwardRef<ChapterCardHandler, Props>(
 //   ({ chapter, chapterIndex, setCompletedChapters, completedChapters }, ref) => {
 //     const { toast } = useToast();
-//     const [success, setSuccess] =  React.useState<boolean | null>(null);
-//     const { mutate: getChapterInfo, isLoading } = useMutation({
-//       mutationFn: async () => {
-//         const response = await axios.post("/api/chapter/getInfo", {
-//           chapterId: chapter.id,
-//         });
-//         return response.data;
-//       },   
-//     });
+//     const [success, setSuccess] = React.useState<boolean | null>(null);
+//     // Using the generated mutation hook from the store
+//     const [getChapterInfo, { isLoading }] = useGetChapterInfoMutation();
 
 //     const addChapterIdToSet = React.useCallback(() => {
 //       setCompletedChapters((prev) => {
@@ -145,7 +125,7 @@ export default ChapterCard;
 //     React.useEffect(() => {
 //       if (chapter.videoId) {
 //         setSuccess(true);
-//         addChapterIdToSet;
+//         addChapterIdToSet();
 //       }
 //     }, [chapter, addChapterIdToSet]);
 
@@ -155,12 +135,15 @@ export default ChapterCard;
 //           addChapterIdToSet();
 //           return;
 //         }
-//         getChapterInfo(undefined, {
-//           onSuccess: () => {
+//         try {
+//           // Call the mutation hook to fetch chapter info
+//           const response = await getChapterInfo({ chapterId: chapter.id });
+//           if ('data' in response) {
+//             const { data:any } = response;
 //             setSuccess(true);
 //             addChapterIdToSet();
-//           },
-//           onError: (error) => {
+//           } else {
+//             const { error } = response;
 //             console.error(error);
 //             setSuccess(false);
 //             toast({
@@ -169,10 +152,20 @@ export default ChapterCard;
 //               variant: "destructive",
 //             });
 //             addChapterIdToSet();
-//           },
-//         });
+//           }
+//         } catch (error) {
+//           console.error(error);
+//           setSuccess(false);
+//           toast({
+//             title: "Error",
+//             description: "There was an error loading your chapter",
+//             variant: "destructive",
+//           });
+//           addChapterIdToSet();
+//         }
 //       },
 //     }));
+
 //     return (
 //       <div
 //         key={chapter.id}
@@ -183,7 +176,8 @@ export default ChapterCard;
 //         })}
 //       >
 //         <h5>{chapter.name}</h5>
-//         {/* {isLoading && <Loader2 className="animate-spin" />} */}
+//         {/* Display loader based on isLoading */}
+//         {isLoading && <Loader2 className="animate-spin" />}
 //       </div>
 //     );
 //   }
