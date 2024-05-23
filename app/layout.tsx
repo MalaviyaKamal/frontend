@@ -20,12 +20,12 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='en'>
-			<body className={inter.className}>
+			<body className={`${inter.className} overflow-x-hidden`}>
 				<Provider>
 					<Setup />
 					<Navbar />
 					{/* <div className='max-w-7xl min-h-[601px] mx-auto'> */}
-					<div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-8 min-h-[601px]'>
+					<div className='m-3 w-screen overflow-x-hidden'>
 						{children}
 					</div>
 					<Footer />

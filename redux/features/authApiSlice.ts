@@ -15,17 +15,6 @@ interface Input {
   units: string[];
 }
 
-// interface Course {
-//   id: string;
-//   name:string,
-//   image:string,
-//   units:string[],
-//   chapter:string[],
-//   question:string[],
-//   youtubeSearchQuery:string,
-//   videoId:string,
-//   summary:string
-// }
 interface Question{
   id: string;
   question:string;
@@ -55,6 +44,16 @@ interface Course {
   user?: number | any;
   units: Units[] | any;
 }
+
+interface UserSubscription {
+  id: number;
+  user: number | string; 
+  stripe_customer_id: string;
+  stripe_subscription_id: string | null;
+  stripe_price_id: string | null;
+  stripe_current_period_end: Date | null;
+}
+
 const authApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     retrieveUser: builder.query<User, void>({
@@ -133,6 +132,9 @@ const authApiSlice = apiSlice.injectEndpoints({
         body: { chapterId },
       }),
     }),
+    subscription:builder.query<UserSubscription, void>({
+      query: () => '/stripe/subscription/',
+    }),
   }),
 });
 
@@ -147,8 +149,9 @@ export const {
   useResetPasswordConfirmMutation,
   useCreateChaptersMutation,
   useRetrieveCourseQuery,
+  useSubscriptionQuery,
   useRetrieveCourseByIdQuery,
-  useGetChapterInfoMutation,
+  useGetChapterInfoMutation
 } = authApiSlice;
  
 

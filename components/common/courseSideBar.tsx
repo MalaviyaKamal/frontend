@@ -44,7 +44,7 @@ interface Course {
 
 const CourseSideBar = ({ course, currentChapterId }: Props) => {
   return (
-    <div className="left-0 overflow-y-auto bg-secondary" style={{width: "125rem",height:"100vh"}}>
+    <div className="w-full bg-secondary">
       <div className="p-6">
         <h1 className="text-4xl font-bold">{course?.name}</h1>
         {course?.units.map((unit: any, unitIndex: any) => {

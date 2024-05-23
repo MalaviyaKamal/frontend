@@ -1,12 +1,10 @@
 "use client";
 import { useCreateChaptersMutation } from "@/redux/features/authApiSlice";
 import { useRouter } from 'next/navigation';
-// import { useToast } from "@/components/ui/use-toast";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { createChaptersSchema } from "@/validators/course";
 import { toast } from "react-toastify"; 
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Form, FormField, FormControl, FormItem, FormLabel,FormMessage } from "@/components/ui/form";
@@ -15,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Plus, Trash } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Spinner } from '@/components/common';
+import SubscriptionAction from "./SubscriptionAction";
 
 type InputData = z.infer<typeof createChaptersSchema>;
 
@@ -121,10 +120,11 @@ const CreateCourseForm = () => {
             <Separator className="flex-[1]" />
           </div>
           <Button disabled={isLoading} type="submit" className="w-full mt-6" size="lg">
-					{isLoading ? <Spinner sm /> : `CreateCourse`}
+					{isLoading ? <Spinner sm /> : `Let's Go!`}
           </Button>
         </form>
       </Form>
+      <SubscriptionAction/>
     </div>
   );
 };
