@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 // import Provider from '@/redux/provider';
-import { Provider } from '@/components/common/Providers'
+import { Provider } from '@/components/common/Providers';
 import { Footer, Navbar } from '@/components/common';
 import { Setup } from '@/components/utils';
+import { ThemeProvider } from "next-themes";
+import { TheameChanged } from "@/components/text";
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,17 +23,17 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={`${inter.className} overflow-x-hidden`}>
-				<Provider>
-					<Setup />
-					<Navbar />
-					{/* <div className='max-w-7xl min-h-[601px] mx-auto'> */}
-					<div className='m-3 w-screen overflow-x-hidden'>
-						{children}
-					</div>
-					<Footer />
-				</Provider>
+				<ThemeProvider attribute="class">
+					<Provider>
+						<Setup />
+						<Navbar />
+						<div className='m-3 w-screen min-h-[601px] overflow-x-hidden text-theme'>
+							{children}
+						</div>
+						<Footer />
+					</Provider>
+				</ThemeProvider>
 			</body>
 		</html>
 	);
 }
-

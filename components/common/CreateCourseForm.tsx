@@ -15,9 +15,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Spinner } from '@/components/common';
 import SubscriptionAction from "./SubscriptionAction";
 
+type Props = {isPro:boolean}
 type InputData = z.infer<typeof createChaptersSchema>;
 
-const CreateCourseForm = () => {
+const CreateCourseForm = ({isPro}:Props) => {
 	const router = useRouter();
   const [createChapters, { isLoading }] = useCreateChaptersMutation();
 
@@ -124,7 +125,8 @@ const CreateCourseForm = () => {
           </Button>
         </form>
       </Form>
-      <SubscriptionAction/>
+      {!isPro &&  <SubscriptionAction/>}
+     
     </div>
   );
 };

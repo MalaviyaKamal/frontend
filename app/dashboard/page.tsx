@@ -3,7 +3,6 @@
 import { useRetrieveUserQuery } from '@/redux/features/authApiSlice';
 import { List, Spinner } from '@/components/common';
 
-
 export default function Page() {
 	const { data: user, isLoading, isFetching, error } = useRetrieveUserQuery();
 
@@ -39,8 +38,6 @@ export default function Page() {
 			</div>
 		);
 	}
-
-	
 
 	return (
 		<>

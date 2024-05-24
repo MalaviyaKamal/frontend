@@ -45,7 +45,7 @@ const GalleryCourseCard = ({ course }: { course: Course | undefined }) => {
               width={300}
               height={300}
               alt="picture of the course"
-              className="object-cover w-full max-h-[300px] rounded-t-lg"
+              className="object-cover w-full max-h-[400px] rounded-t-lg"
             />
             <span className="absolute px-2 py-1 text-white rounded-md bg-black/60 w-fit bottom-2 left-2 right-2">
               {course?.name}

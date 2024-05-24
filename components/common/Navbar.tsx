@@ -1,11 +1,8 @@
 "use client";
-
 import { useRouter, usePathname } from "next/navigation";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-// import { useLogoutMutation } from "@/redux/features/authApiSlice";
-// import { logout as setLogout } from "@/redux/features/authSlice";
 import { NavLink } from "@/components/common";
 import  UserAccountNav from '@/components/common/UserAccountNav'
 import { ThemeToggle } from "./ThemeToggle";
@@ -31,7 +28,7 @@ export default function Navbar() {
   const isSelected = (path: string) => (pathname === path ? true : false);
 
   const authLinks = (isMobile: boolean) => (
-    <div className="flex flex-row gap-6">
+    <div className="flex flex-col sm:flex-row gap-6">
 	 <NavLink href="/gallery" isMobile={isMobile} className="mt-1.5 transition-all px-0 hover:-translate-y-[2px] md:block">
         Gallery
       </NavLink>
@@ -83,8 +80,8 @@ export default function Navbar() {
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div className="relative flex h-16 items-center justify-space">
+          <div className="relative flex justify-center sm:justify-between mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
+            <div className="inline-block mx-auto sm:flex h-16 items-center justify-space ">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
@@ -96,7 +93,7 @@ export default function Navbar() {
                 </Disclosure.Button>
               </div>
 
-              <div className="flex flex-shrink-0 items-center">
+              <div className="flex flex-shrink-0 sm:absolute sm:left-0 items-center">
                 <NavLink href="/" isBanner>
                   <p className="rounded-lg border-2 border-b-4 border-r-4 border-black px-2 py-1 text-xl font-bold transition-all hover:-translate-y-[2px] md:block dark:border-white">
                     Learning Journey
@@ -106,7 +103,7 @@ export default function Navbar() {
 										</div> */}
                 </NavLink>
               </div>
-              <div className="flex flex-1 items-center justify-center space-x-3 sm:items-stretch sm:justify-end">
+              <div className="flex flex-1 sm:absolute sm:right-0 items-center justify-center space-x-3 sm:items-stretch sm:justify-end">
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {isAuthenticated ? authLinks(false) : guestLinks(false)}

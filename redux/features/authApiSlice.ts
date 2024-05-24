@@ -45,6 +45,11 @@ interface Course {
   units: Units[] | any;
 }
 
+interface checksubscription{
+  isValid: boolean;
+  next_billing_date: string | null;
+}
+
 interface UserSubscription {
   id: number;
   user: number | string; 
@@ -132,6 +137,9 @@ const authApiSlice = apiSlice.injectEndpoints({
         body: { chapterId },
       }),
     }),
+    CheckSubscription:builder.query<checksubscription,void>({
+      query: () => '/stripe/check-subscription/',
+    }),
     subscription:builder.query<UserSubscription, void>({
       query: () => '/stripe/subscription/',
     }),
@@ -150,6 +158,7 @@ export const {
   useCreateChaptersMutation,
   useRetrieveCourseQuery,
   useSubscriptionQuery,
+  useCheckSubscriptionQuery,
   useRetrieveCourseByIdQuery,
   useGetChapterInfoMutation
 } = authApiSlice;

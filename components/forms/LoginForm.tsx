@@ -65,30 +65,7 @@ export default function LoginForm() {
 				error={errors.password}>
 				Password
 			</Input>
-			{/* <Input
-				key="email"
-				labelId="email"
-				type="email"
-				required={true}
-				register={register}
-				error={errors.email}>
-				Email Address
-			</Input> */}
-
-
-			{/* {config.map(input => (
-				<Input
-					key={input.labelId}
-					labelId={input.labelId}
-					type={input.type}
-					onChange={onChange}
-					value={input.value}
-					link={input.link}
-					required={input.required}
-				>
-					{input.labelText}
-				</Input>
-			))} */}
+			
 
 			<div>
 				<button

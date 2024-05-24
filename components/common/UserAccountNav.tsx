@@ -20,13 +20,11 @@ const UserAccountNav = () => {
     logout(undefined)
       .unwrap()
       .then(() => {
-        // Cookies.remove('token');
-        // Cookies.remove('access1');
         dispatch(setLogout());
       });
   };
   if (isLoading || isFetching) {
-    console.log("error user",error)
+    // console.log("error user",error)
     return (
         <div className='flex justify-center my-8'>
             <Spinner lg />

@@ -1,25 +1,36 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
+import { useSubscriptionQuery } from "@/redux/features/authApiSlice";
 
 type Props = { isPro: boolean };
 
 const SubscriptionButton = ({ isPro }: Props) => {
+  const { data: subscriptionData, isLoading: subscriptionLoading, isError: subscriptionError } = useSubscriptionQuery();
+
   const [loading, setLoading] = React.useState(false);
-  const handleSubscribe = async () => {
+  const handleSubscribe = () => {
     setLoading(true);
     try {
-      const response = await axios.get("/api/stripe");
-      window.location.href = response.data.url;
+      // console.log("response subscription", subscriptionData);
+      if (subscriptionData?.url) {
+        window.location.href = subscriptionData.url;
+      }
     } catch (error) {
-      console.log("billing error");
+      console.log("billing error", error);
     } finally {
       setLoading(false);
     }
   };
+  // if (subscriptionLoading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (subscriptionError) {
+  //   return <div>Error occurred</div>;
+  // }
   return (
-    <Button className="mt-4" disabled={loading} onClick={handleSubscribe}>
+    <Button className="mt-8" disabled={loading} onClick={handleSubscribe}>
       {isPro ? "Manage Subscriptions" : "Upgrade"}
     </Button>
   );
