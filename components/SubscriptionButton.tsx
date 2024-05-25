@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { useSubscriptionQuery } from "@/redux/features/authApiSlice";
+import { useSubscriptionQuery } from "@/redux/features/subscriptionApiSlice";
 
 type Props = { isPro: boolean };
 

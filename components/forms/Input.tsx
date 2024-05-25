@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import Link from 'next/link';
 import { FieldError,RegisterOptions,  UseFormRegister , FieldValues, Path} from 'react-hook-form';
 
@@ -28,12 +28,13 @@ export default function Input<T extends FieldValues>({
 	validation,
 	required = false,
 }: Props<T>) {
+	
 	return (
 		<div>
 			<div className='flex justify-between align-center'>
 				<label
 					htmlFor={labelId}
-					className='block text-sm font-medium leading-6 text-gray-900'
+					className={`block text-sm font-medium leading-6`}
 				>
 					{children}
 				</label>
@@ -52,7 +53,7 @@ export default function Input<T extends FieldValues>({
 				<input
 					{...register(labelId as Path<T>, validation)}
 					id={labelId}
-					className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset px-2 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+					className='block w-full bg-slate-200 rounded-md border-1 border-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset px-2 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
 					name={labelId}
 					type={type}
 				/>

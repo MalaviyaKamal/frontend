@@ -2,9 +2,10 @@
 import React from "react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { useRetrieveUserQuery, useSubscriptionQuery } from "@/redux/features/authApiSlice";
+import { useRetrieveUserQuery } from "@/redux/features/authApiSlice";
+import { useSubscriptionQuery } from "@/redux/features/subscriptionApiSlice";
 import { Zap } from "lucide-react";
-
+import { Spinner } from "./common";
 type Props = {};
 
 const SubscriptionAction = (props: Props) => {
@@ -28,7 +29,11 @@ const SubscriptionAction = (props: Props) => {
   };
 
   if (userLoading || subscriptionLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center my-8">
+      <Spinner lg />
+    </div>
+    );
   }
 
   if (userError || subscriptionError) {

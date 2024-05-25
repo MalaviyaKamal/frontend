@@ -6,7 +6,7 @@ import {toast} from "react-toastify"
 import { Loader2 } from "lucide-react";
 import { Chapter } from "./confirmChapters"; 
 import React from "react";
-import { useGetChapterInfoMutation } from "@/redux/features/authApiSlice"; 
+import { useGetChapterInfoMutation } from "@/redux/features/courseApiSlice"; 
 
 type Props = {
   chapter: Chapter;

@@ -4,6 +4,7 @@
 import { useResetPasswordConfirm } from '@/hooks';
 import { Form, Input } from '@/components/forms';
 import { Spinner } from '@/components/common';
+import { Button } from '../ui/button';
 
 interface Props {
   uid: string;
@@ -57,13 +58,13 @@ export default function PasswordResetConfirmForm({ uid, token }: Props) {
 				Confirm New Password
 			</Input>
       <div>
-        <button
+        <Button
           type='submit'
-          className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+          className='flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
           disabled={isLoading}
         >
           {isLoading ? <Spinner sm /> : `Reset Password`}
-        </button>
+        </Button>
       </div>
 
       {errors.root && (

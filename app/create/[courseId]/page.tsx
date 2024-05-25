@@ -3,10 +3,9 @@
 
 import React, { useState, useEffect } from "react";
 import { Info } from "lucide-react";
-import { redirect } from "next/navigation";
-import { useRetrieveCourseByIdQuery } from "@/redux/features/authApiSlice";
+import { useRetrieveCourseByIdQuery } from "@/redux/features/courseApiSlice";
 import { toast } from "react-toastify";
-import ConfirmChapters from "@/components/common/confirmChapters";
+import ConfirmChapters from "@/components/confirmChapters";
 import { Spinner } from "@/components/common";
 
 type Props = {

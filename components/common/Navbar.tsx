@@ -9,21 +9,10 @@ import { ThemeToggle } from "./ThemeToggle";
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
-//   const dispatch = useAppDispatch();
-
-//   const [logout] = useLogoutMutation();
 
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
-//   const handleLogout = () => {
-//     logout(undefined)
-//       .unwrap()
-//       .then(() => {
-//         // Cookies.remove('token');
-//         // Cookies.remove('access1');
-//         dispatch(setLogout());
-//       });
-//   };
+
 
   const isSelected = (path: string) => (pathname === path ? true : false);
 
@@ -35,9 +24,6 @@ export default function Navbar() {
       <NavLink href="/create" isMobile={isMobile} className="mt-1.5 transition-all px-0 hover:-translate-y-[2px] md:block">
         Create Course
       </NavLink>
-      {/* <NavLink isMobile={isMobile} onClick={handleLogout} className="mt-1.5 transition-all px-0 hover:-translate-y-[2px] md:block">
-        Logout
-      </NavLink> */}
 	   <NavLink isSelected={isSelected("/dashboard")} isMobile={isMobile} href="/dashboard" className="mt-1.5 transition-all px-0 hover:-translate-y-[2px] md:block">
 	   {/* <NavLink  isMobile={isMobile} href="/dashboard " className="mt-1.5 transition-all px-0 hover:-translate-y-[2px] md:block"> */}
         {/* <img
@@ -47,7 +33,6 @@ export default function Navbar() {
         /> */}
         dashboard
       </NavLink>
-      <ThemeToggle className="mt-1.5 transition-all hover:-translate-y-[2px] md:block "/>
 	    <UserAccountNav />
      
     </div>
@@ -72,7 +57,6 @@ export default function Navbar() {
         Register
       </NavLink>
       <ThemeToggle className="mt-1.5 transition-all px-0 hover:-translate-y-[2px] md:block "/>
-
     </div>
   );
 

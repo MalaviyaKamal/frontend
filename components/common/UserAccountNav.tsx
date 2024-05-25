@@ -3,11 +3,11 @@ import React from 'react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import { LogOut } from 'lucide-react';
 import { useRetrieveUserQuery,useLogoutMutation  } from '@/redux/features/authApiSlice';
-import { Button } from '../ui/button';
 import { logout as setLogout } from "@/redux/features/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { Spinner } from '@/components/common';
 import UserAvatar from './UserAvatar';
+import { ThemeToggle } from "./ThemeToggle";
 
 
 const UserAccountNav = () => {
@@ -47,8 +47,11 @@ const UserAccountNav = () => {
               </p>
             )}
           </div>
+          <ThemeToggle className="mt-1.5 transition-all px-0 hover:-translate-y-[2px] md:block "/>
         </div>
         <DropdownMenuSeparator />
+        {/* <DropdownMenu>
+        </DropdownMenu> */}
         <DropdownMenuItem
           onSelect={() => {
             handleLogout();

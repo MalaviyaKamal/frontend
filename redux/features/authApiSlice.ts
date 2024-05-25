@@ -10,54 +10,6 @@ interface User {
   image: string;
 }
 
-interface Input {
-  title: string;
-  units: string[];
-}
-
-interface Question{
-  id: string;
-  question:string;
-  answer:string;
-  options:string;
-}
-
-interface Chapter {
-  id: string;
-  name: string;
-  youtubeSearchQuery: string;
-  videoId: string | null;
-  summary: string | null;
-  question:Question[]
-}
-
-interface Units {
-  id: string;
-  name: string;
-  chapter: Chapter[];
-}
-
-interface Course {
-  id: string;
-  name: string;
-  image: string;
-  user?: number | any;
-  units: Units[] | any;
-}
-
-interface checksubscription{
-  isValid: boolean;
-  next_billing_date: string | null;
-}
-
-interface UserSubscription {
-  id: number;
-  user: number | string; 
-  stripe_customer_id: string;
-  stripe_subscription_id: string | null;
-  stripe_price_id: string | null;
-  stripe_current_period_end: Date | null;
-}
 
 const authApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
@@ -117,32 +69,7 @@ const authApiSlice = apiSlice.injectEndpoints({
         body: { uid, token, new_password, re_new_password },
       }),
     }),
-    createChapters: builder.mutation({
-      query: ({ title, units }: Input) => ({
-        url: '/course/createchapter/',
-        method: 'POST',
-        body: { title, units },
-      }),
-    }),
-    retrieveCourse: builder.query<Course, void>({
-      query: () => '/course/courseget/',
-    }),
-    retrieveCourseById: builder.query<Course,void>({
-      query: (courseId) => `/course/courseget/${courseId}/`,
-    }),
-    getChapterInfo: builder.mutation({
-      query: ({ chapterId }: { chapterId: string }) => ({
-        url: '/course/chaptergetinfo/',
-        method: 'POST',
-        body: { chapterId },
-      }),
-    }),
-    CheckSubscription:builder.query<checksubscription,void>({
-      query: () => '/stripe/check-subscription/',
-    }),
-    subscription:builder.query<UserSubscription, void>({
-      query: () => '/stripe/subscription/',
-    }),
+    
   }),
 });
 
@@ -155,12 +82,7 @@ export const {
   useActivationMutation,
   useResetPasswordMutation,
   useResetPasswordConfirmMutation,
-  useCreateChaptersMutation,
-  useRetrieveCourseQuery,
-  useSubscriptionQuery,
-  useCheckSubscriptionQuery,
-  useRetrieveCourseByIdQuery,
-  useGetChapterInfoMutation
+
 } = authApiSlice;
  
 

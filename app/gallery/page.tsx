@@ -1,18 +1,22 @@
 'use client'
 
-import GalleryCourseCard from "@/components/common/GalleryCourseCard";
-import { useRetrieveCourseQuery } from "@/redux/features/authApiSlice";
+import GalleryCourseCard from "@/components/GalleryCourseCard";
+import { useRetrieveCourseQuery } from "@/redux/features/courseApiSlice";
 import React from "react";
 import { redirect } from "next/navigation";
-
+import { Spinner } from "@/components/common";
 type Props = {};
 
 const GalleryPage = (props: Props) => {
   const { data: course, isLoading, isError } = useRetrieveCourseQuery();
   console.log("course", course);
   if (isLoading) {
-    return <div>Loading...</div>;
-  }
+    return (
+      <div className="flex justify-center my-8">
+        <Spinner lg />
+      </div> 
+      )
+       }
   if (isError) {
     console.error("Error fetching course:", isError);
     return <div>Error fetching course. Please try again later.</div>;

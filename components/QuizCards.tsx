@@ -9,7 +9,7 @@ interface Question {
   id: string;
   question: string;
   answer: string;
-  options: string[]; // Array of strings
+  options: string[]; 
 }
 
 interface Chapter {
@@ -18,7 +18,7 @@ interface Chapter {
   youtubeSearchQuery: string;
   videoId: string | null;
   summary: string | null;
-  questions: Question[]; // Array of questions
+  question: Question[]; 
 }
 
 type Props = {

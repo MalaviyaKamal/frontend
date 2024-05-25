@@ -1,5 +1,5 @@
 "use client";
-import { useCreateChaptersMutation } from "@/redux/features/authApiSlice";
+import { useCreateChaptersMutation } from "@/redux/features/courseApiSlice";
 import { useRouter } from 'next/navigation';
 import { useForm } from "react-hook-form";
 import { z } from "zod";

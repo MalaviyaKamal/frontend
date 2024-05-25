@@ -3,30 +3,10 @@
 import { useLogin } from '@/hooks';
 import { Input } from '@/components/forms';
 import { Spinner } from '@/components/common';
+import { Button } from "@/components/ui/button";
 
 export default function LoginForm() {
 	const { register, setError, isLoading, onSubmit, errors } = useLogin();
-
-	// const config = [
-	// 	{
-	// 		labelText: 'Email address',
-	// 		labelId: 'email',
-	// 		type: 'email',
-	// 		value: email,
-	// 		required: true,
-	// 	},
-	// 	{
-	// 		labelText: 'Password',
-	// 		labelId: 'password',
-	// 		type: 'password',
-	// 		value: password,
-	// 		link: {
-	// 			linkText: 'Forgot password?',
-	// 			linkUrl: '/password-reset',
-	// 		},
-	// 		required: true,
-	// 	},
-	// ];
 
 	return (
 		<form noValidate className='space-y-6' onSubmit={onSubmit}>
@@ -68,13 +48,13 @@ export default function LoginForm() {
 			
 
 			<div>
-				<button
+				<Button
 					type='submit'
-					className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+					className='flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6  shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
 					disabled={isLoading}
 				>
 					{isLoading ? <Spinner sm /> : `Login`}
-				</button>
+				</Button>
 			</div>
 			{errors.root && (
             <span className="text-xs text-red-600">{errors.root.message}</span>

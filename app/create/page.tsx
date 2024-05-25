@@ -1,11 +1,10 @@
 
 'use client'
 import React from "react";
-import { redirect } from "next/navigation";
 import { InfoIcon } from "lucide-react";
-import CreateCourseForm from "@/components/common/CreateCourseForm";
-// import { checkSubscription } from "@/lib/subscription";
-import { useCheckSubscriptionQuery } from "@/redux/features/authApiSlice";
+import { Spinner } from "@/components/common";
+import CreateCourseForm from "@/components/CreateCourseForm";
+import { useCheckSubscriptionQuery } from "@/redux/features/subscriptionApiSlice";
 
 type Props = {};
 
@@ -13,7 +12,11 @@ const CreatePage = (props: Props) => {
   const { data: apiResponse, error, isLoading } = useCheckSubscriptionQuery();
   // console.log("resp",apiResponse)
     if (isLoading) {
-      return <div>Loading...</div>;
+      return (
+        <div className="flex justify-center my-8">
+        <Spinner lg />
+      </div>
+      );
     }
   
     if (error) {
