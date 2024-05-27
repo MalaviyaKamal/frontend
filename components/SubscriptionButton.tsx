@@ -12,7 +12,6 @@ const SubscriptionButton = ({ isPro }: Props) => {
   const handleSubscribe = () => {
     setLoading(true);
     try {
-      // console.log("response subscription", subscriptionData);
       if (subscriptionData?.url) {
         window.location.href = subscriptionData.url;
       }
@@ -22,13 +21,6 @@ const SubscriptionButton = ({ isPro }: Props) => {
       setLoading(false);
     }
   };
-  // if (subscriptionLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (subscriptionError) {
-  //   return <div>Error occurred</div>;
-  // }
   return (
     <Button className="mt-8" disabled={loading} onClick={handleSubscribe}>
       {isPro ? "Manage Subscriptions" : "Upgrade"}

@@ -14,7 +14,7 @@ interface User {
 const authApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     retrieveUser: builder.query<User, void>({
-      query: () => '/current-user/',
+      query: () => '/user-profile/',
     }),
     login: builder.mutation({
       query: ({ email, password }) => ({
@@ -36,6 +36,13 @@ const authApiSlice = apiSlice.injectEndpoints({
         body: { first_name, last_name, email, password, re_password },
       }),
     }),
+    UpdateUser:builder.mutation({
+      query:(formData)=>({
+        url:'/user-profile/',
+        method:'PUT',
+        body:formData,
+      })
+    }),
     verify: builder.mutation({
       query: () => ({
         url: '/jwt/verify/',
@@ -47,6 +54,12 @@ const authApiSlice = apiSlice.injectEndpoints({
         url: '/logout/',
         method: 'POST',
       }),
+    }),
+    DeleteUser:builder.mutation({
+      query:()=>({
+        url:'/user-profile/',
+        method:'DELETE',
+      })
     }),
     activation: builder.mutation({
       query: ({ uid, token }) => ({
@@ -77,12 +90,13 @@ export const {
   useRetrieveUserQuery,
   useLoginMutation,
   useRegisterMutation,
+  useUpdateUserMutation,
   useVerifyMutation,
   useLogoutMutation,
+  useDeleteUserMutation,
   useActivationMutation,
   useResetPasswordMutation,
-  useResetPasswordConfirmMutation,
-
+  useResetPasswordConfirmMutation
 } = authApiSlice;
  
 
