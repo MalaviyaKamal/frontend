@@ -1,59 +1,48 @@
 import { ChangeEvent, FormEvent } from 'react';
-import { Input } from '@/components/forms';
+import { Input as FormInput } from '@/components/forms';
 import { Spinner } from '@/components/common';
 
-interface Config {
-	labelText: string;
+// components/forms/Input.tsx
+
+interface InputProps {
 	labelId: string;
 	type: string;
+	onChange: (event: ChangeEvent<HTMLInputElement>) => void; // Define onChange prop
 	value: string;
 	link?: {
 		linkText: string;
 		linkUrl: string;
 	};
 	required?: boolean;
+	children?: React.ReactNode; // Add children property
 }
 
-interface Props {
-	config: Config[];
-	isLoading: boolean;
-	btnText: string;
-	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-	onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-}
+const Input: React.FC<InputProps> = ({
+  labelId,
+  type,
+  onChange,
+  value,
+  link,
+  required,
+  children,
+}) => {
+  return (
+    <div>
+      <label htmlFor={labelId}>{children}</label>
+      <input
+        type={type}
+        id={labelId}
+        value={value}
+        onChange={onChange} // Use the provided onChange prop
+        required={required}
+      />
+      {link && (
+        <a href={link.linkUrl} target="_blank" rel="noopener noreferrer">
+          {link.linkText}
+        </a>
+      )}
+    </div>
+  );
+};
 
-export default function Form({
-	config,
-	isLoading,
-	btnText,
-	onChange,
-	onSubmit,
-}: Props) {
-	return (
-		<form className='space-y-6' onSubmit={onSubmit}>
-			{config.map(input => (
-				<Input
-					key={input.labelId}
-					labelId={input.labelId}
-					type={input.type}
-					onChange={onChange}
-					value={input.value}
-					link={input.link}
-					required={input.required}
-				>
-					{input.labelText}
-				</Input>
-			))}
-
-			<div>
-				<button
-					type='submit'
-					className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-					disabled={isLoading}
-				>
-					{isLoading ? <Spinner sm /> : `${btnText}`}
-				</button>
-			</div>
-		</form>
-	);
-}
+export default Input;

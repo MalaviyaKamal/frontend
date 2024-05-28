@@ -27,8 +27,10 @@ const SubscriptionAction = (props: Props) => {
     setIsTermsModalOpen(false);
     try {
       console.log("response subscription", subscriptionData);
-      if (subscriptionData?.url) {
+      if (subscriptionData && 'url' in subscriptionData) {
         window.location.href = subscriptionData.url;
+      } else {
+        console.log("Subscription data does not contain a URL");
       }
     } catch (error) {
       console.log("error", error);
@@ -36,7 +38,7 @@ const SubscriptionAction = (props: Props) => {
       setLoading(false);
     }
   };
-
+  
   if (userLoading || subscriptionLoading) {
     return (
       <div className="flex justify-center my-8">

@@ -12,9 +12,11 @@ interface User {
 
 
 const authApiSlice = apiSlice.injectEndpoints({
+  
   endpoints: builder => ({
     retrieveUser: builder.query<User, void>({
       query: () => '/user-profile/',
+      providesTags: ["User"] 
     }),
     login: builder.mutation({
       query: ({ email, password }) => ({
@@ -39,9 +41,10 @@ const authApiSlice = apiSlice.injectEndpoints({
     UpdateUser:builder.mutation({
       query:(formData)=>({
         url:'/user-profile/',
-        method:'PUT',
+        method:'PATCH',
         body:formData,
-      })
+        
+      }),invalidatesTags:["User"]
     }),
     verify: builder.mutation({
       query: () => ({
@@ -55,7 +58,7 @@ const authApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
       }),
     }),
-    DeleteUser:builder.mutation({
+    deleteUser:builder.mutation({
       query:()=>({
         url:'/user-profile/',
         method:'DELETE',

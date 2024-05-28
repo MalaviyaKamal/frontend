@@ -6,7 +6,6 @@ import { Provider } from '@/components/common/Providers';
 import { Footer, Navbar } from '@/components/common';
 import { Setup } from '@/components/utils';
 import { ThemeProvider } from "next-themes";
-import { TheameChanged } from "@/components/text";
 
 const inter = Inter({ subsets: ['latin'] });
 

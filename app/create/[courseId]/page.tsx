@@ -20,7 +20,7 @@ const CreateChapters = ({ params: { courseId } }: Props) => {
 console.log(course)
   useEffect(() => {
     if (error && !toastShown) {
-      toast.error(`Error: ${error.data.message}`);
+      toast.error(`Error: ${error}`);
       setToastShown(true);
     }
   }, [error, toastShown]);

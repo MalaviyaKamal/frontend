@@ -1,7 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-// import { useToast } from "@/components/ui/use-toast";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
 import { Chapter } from "./confirmChapters"; 
 import React from "react";
@@ -10,8 +9,8 @@ import { useGetChapterInfoMutation } from "@/redux/features/courseApiSlice";
 type Props = {
   chapter: Chapter;
   chapterIndex: number;
-  completedChapters: Set<String>;
-  setCompletedChapters: React.Dispatch<React.SetStateAction<Set<String>>>;
+  completedChapters: Set<string>;
+  setCompletedChapters: React.Dispatch<React.SetStateAction<Set<string>>>;
 };
 
 export type ChapterCardHandler = {
@@ -53,14 +52,14 @@ const ChapterCard = React.forwardRef<ChapterCardHandler, Props>(
           } else {
             const { error } = response;
             console.error(error);
-            setSuccess(false);''
-            toast.error(`There was an error loading your chapter ${error}`);
+            setSuccess(false);
+            toast.error(`There was an error loading your chapter: ${error}`);
             addChapterIdToSet();
           }
         } catch (error) {
           console.error(error);
           setSuccess(false);
-          toast.error(`There was an error loading your chapter ${error}`);
+          toast.error(`There was an error loading your chapter: ${error}`);
           addChapterIdToSet();
         }
       },
@@ -77,7 +76,7 @@ const ChapterCard = React.forwardRef<ChapterCardHandler, Props>(
       >
         <h5>{chapter.name}</h5>
         {isLoading && <Loader2 className="animate-spin" />}
-        {success === false && (
+        {success === false && ref && "current" in ref && (
           <button
             onClick={() => ref.current?.triggerLoad()}
             className="text-white bg-blue-500 px-2 py-1 rounded"

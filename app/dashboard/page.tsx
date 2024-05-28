@@ -1,5 +1,4 @@
-"use client";
-
+'use client'
 import React, { useState } from "react";
 import { useRetrieveUserQuery, useDeleteUserMutation } from "@/redux/features/authApiSlice";
 import { useCheckSubscriptionQuery } from "@/redux/features/subscriptionApiSlice";
@@ -7,17 +6,23 @@ import { List, Spinner } from "@/components/common";
 import SubscriptionButton from "@/components/SubscriptionButton";
 import { useTheme } from "next-themes";
 import SubscriptionAction from "@/components/SubscriptionAction";
-import UpdateProfile from "@/components/forms/UpdateProfile";
 import DeleteAccountModal from "@/components/forms/DeleteAccountModal";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import UpdateProfileModal from "@/components/forms/UpdateProfileModal";
+import { logout as setLogout } from "@/redux/features/authSlice";
+import { useAppDispatch } from "@/redux/hooks";
 
-export default function Page() {
+export default function DashboardPage() {
   const { theme } = useTheme();
-  const { data: user, isLoading, isFetching, error } = useRetrieveUserQuery();
-  const { data: apiResponse, error: errorsub, isLoading: loadingsub } = useCheckSubscriptionQuery();
+  const { data: user, isLoading, isFetching, error, refetch: refetchUser } = useRetrieveUserQuery();
+  const { data: apiResponse, error: errorsub, isLoading: loadingsub, refetch: refetchSubscription } = useCheckSubscriptionQuery();
   const [deleteUser] = useDeleteUserMutation();
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-
+  const [isUpdateProfileModalOpen, setUpdateProfileModalOpen] = useState(false);
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  console.log("use data",user)
   if (isLoading || isFetching || loadingsub) {
     return (
       <div className="flex justify-center my-8">
@@ -27,20 +32,31 @@ export default function Page() {
   }
 
   if (errorsub) {
-    console.error("Error fetching subscription:", error);
+    console.error("Error fetching subscription:", errorsub);
     return <div>Error fetching subscription</div>;
   }
 
   const isPro = apiResponse?.isValid || false;
   const nextBillingDate = apiResponse?.next_billing_date || "";
 
-  const handleDeleteAccount = () => {
+  const handleDeleteAccount = async () => {
     try {
-      deleteUser();
-      window.location.href = "/auth/login";
+      await deleteUser({});
+      dispatch(setLogout());
+      // Refetch user and subscription data after successful delete
+      refetchUser();
+      refetchSubscription();
     } catch (error) {
       console.error("Error deleting account:", error);
     }
+  };
+
+  const handleOpenUpdateProfileModal = () => {
+    setUpdateProfileModalOpen(true);
+  };
+
+  const handleCloseUpdateProfileModal = () => {
+    setUpdateProfileModalOpen(false);
   };
 
   const config = [
@@ -50,8 +66,8 @@ export default function Page() {
     { label: "Email", value: user?.email },
     { label: "Credits", value: user?.credits },
     { label: "Subscription Status", value: isPro ? "Pro User" : "Free User" },
-    isPro && { label: "Next Billing Date", value: nextBillingDate },
-  ].filter(Boolean);
+    isPro ? { label: "Next Billing Date", value: nextBillingDate } : null,
+  ].filter((item) => item !== null);
 
   return (
     <>
@@ -61,8 +77,10 @@ export default function Page() {
         </div>
       </header>
       <main className="mx-auto max-w-7xl py-6 my-8 sm:px-6 lg:px-8">
-        <List config={config} user={user}/>
-        {/* <UpdateProfile user={user} config={config} /> */}
+        <List config={config} />
+        <Button onClick={handleOpenUpdateProfileModal} className="mt-4 bg-blue-600 text-white w-full">
+          Update Profile
+        </Button>
         <Button onClick={() => setDeleteModalOpen(true)} className="mt-4 bg-red-600 text-white w-full">
           Delete Account
         </Button>
@@ -70,6 +88,11 @@ export default function Page() {
           isOpen={isDeleteModalOpen}
           onClose={() => setDeleteModalOpen(false)}
           onConfirm={handleDeleteAccount}
+        />
+        <UpdateProfileModal
+          isOpen={isUpdateProfileModalOpen}
+          onClose={handleCloseUpdateProfileModal}
+          user={user}
         />
       </main>
       <div className="mx-auto max-w-7xl">{!isPro && <SubscriptionAction />}</div>

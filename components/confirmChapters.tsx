@@ -38,10 +38,10 @@ const ConfirmChapters = ({ course }: { course: Course | undefined }) => {
     });
   });
 
-  const [completedChapters, setCompletedChapters] = React.useState<Set<String>>(new Set());
+  const [completedChapters, setCompletedChapters] = React.useState<Set<string>>(new Set());
 
   const totalChaptersCount = React.useMemo(() => {
-    return course?.units.reduce((acc:any, unit: Units) => {
+    return course?.units.reduce((acc: any, unit: Units) => {
       return acc + (unit.chapter ? unit.chapter.length : 0);
     }, 0) || 0;
   }, [course?.units]);
@@ -107,14 +107,3 @@ const ConfirmChapters = ({ course }: { course: Course | undefined }) => {
 };
 
 export default ConfirmChapters;
-
-
-
-
-
-
-
-
-
-
-
