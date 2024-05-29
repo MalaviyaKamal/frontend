@@ -1,7 +1,6 @@
-"use client"
 import { apiSlice } from '../services/apiSlice';
 
-interface checksubscription{
+interface checksubscription {
   isValid: boolean;
   next_billing_date: string | null;
 }
@@ -17,11 +16,10 @@ interface UserSubscription {
 
 const subscriptionApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
-   
-    CheckSubscription:builder.query<checksubscription,void>({
+    CheckSubscription: builder.query<checksubscription, void>({
       query: () => '/stripe/check-subscription/',
     }),
-    subscription:builder.query<UserSubscription, void>({
+    subscription: builder.query<UserSubscription, void>({
       query: () => '/stripe/subscription/',
     }),
   }),
@@ -31,6 +29,3 @@ export const {
   useSubscriptionQuery,
   useCheckSubscriptionQuery,
 } = subscriptionApiSlice;
- 
-
-

@@ -37,7 +37,7 @@ export default function List({ config }: Props) {
               )
             ) : (
               <p className={`text-sm font-semibold leading-6 ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-                {value || <Spinner sm />}
+                {value !== undefined ? value : <Spinner sm />}
               </p>
             )}
           </div>

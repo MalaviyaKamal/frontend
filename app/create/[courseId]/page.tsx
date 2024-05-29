@@ -16,14 +16,14 @@ type Props = {
 
 const CreateChapters = ({ params: { courseId } }: Props) => {
   const { data: course, isLoading, error } = useRetrieveCourseByIdQuery(courseId);
-  const [toastShown, setToastShown] = useState(false);
-console.log(course)
-  useEffect(() => {
-    if (error && !toastShown) {
-      toast.error(`Error: ${error}`);
-      setToastShown(true);
-    }
-  }, [error, toastShown]);
+  // const [toastShown, setToastShown] = useState(false);
+// console.log(course)
+//   useEffect(() => {
+//     if (error && !toastShown) {
+//       toast.error(`Error: ${error}`);
+//       setToastShown(true);
+//     }
+//   }, [error, toastShown]);
 
   if (isLoading) {
     return (
@@ -31,6 +31,11 @@ console.log(course)
         <Spinner lg />
       </div>
     );
+  }
+
+  if (error){
+    const errorMessage = "chapter is not generated";
+      toast.error(errorMessage);
   }
 
   // if (!course) {

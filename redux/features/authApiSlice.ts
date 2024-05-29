@@ -23,7 +23,7 @@ const authApiSlice = apiSlice.injectEndpoints({
         url: '/jwt/create/',
         method: 'POST',
         body: { email, password },
-      }),
+      }),invalidatesTags:["User"]
     }),
     register: builder.mutation({
       query: ({
@@ -36,7 +36,7 @@ const authApiSlice = apiSlice.injectEndpoints({
         url: '/users/',
         method: 'POST',
         body: { first_name, last_name, email, password, re_password },
-      }),
+      }),invalidatesTags:["User"]
     }),
     UpdateUser:builder.mutation({
       query:(formData)=>({
@@ -56,13 +56,13 @@ const authApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: '/logout/',
         method: 'POST',
-      }),
+      }),invalidatesTags:["User"]
     }),
     deleteUser:builder.mutation({
       query:()=>({
         url:'/user-profile/',
         method:'DELETE',
-      })
+      }),invalidatesTags:["User"]
     }),
     activation: builder.mutation({
       query: ({ uid, token }) => ({

@@ -43,8 +43,7 @@ export default function DashboardPage() {
     try {
       await deleteUser({});
       dispatch(setLogout());
-      // Refetch user and subscription data after successful delete
-      refetchUser();
+      // refetchUser();
       refetchSubscription();
     } catch (error) {
       console.error("Error deleting account:", error);
@@ -58,13 +57,13 @@ export default function DashboardPage() {
   const handleCloseUpdateProfileModal = () => {
     setUpdateProfileModalOpen(false);
   };
-
+  console.log("credits",user?.credits )
   const config = [
     { label: "Image", value: user?.image },
     { label: "First Name", value: user?.first_name },
     { label: "Last Name", value: user?.last_name },
     { label: "Email", value: user?.email },
-    { label: "Credits", value: user?.credits },
+    { label: "Credits", value: isPro ? "Unlimited" : (user?.credits !== undefined ? user.credits.toString() : undefined) },
     { label: "Subscription Status", value: isPro ? "Pro User" : "Free User" },
     isPro ? { label: "Next Billing Date", value: nextBillingDate } : null,
   ].filter((item) => item !== null);

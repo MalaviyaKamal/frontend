@@ -7,7 +7,7 @@ import { createChaptersSchema } from "@/validators/course";
 import { toast } from "react-toastify"; 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
-import { Form, FormField, FormControl, FormItem, FormLabel,FormMessage } from "@/components/ui/form";
+import { Form, FormField, FormControl, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Plus, Trash } from "lucide-react";
@@ -15,12 +15,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Spinner } from '@/components/common';
 import SubscriptionAction from "./SubscriptionAction";
 
-type Props = {isPro:boolean}
+type Props = { isPro: boolean }
 type InputData = z.infer<typeof createChaptersSchema>;
 
-const CreateCourseForm = ({isPro}:Props) => {
-	const router = useRouter();
-  const [createChapters, { isLoading }] = useCreateChaptersMutation();
+const CreateCourseForm = ({ isPro }: Props) => {
+  const router = useRouter();
+  const [createChapters, { isLoading, error }] = useCreateChaptersMutation();
 
   const form = useForm<InputData>({
     resolver: zodResolver(createChaptersSchema),
@@ -31,21 +31,17 @@ const CreateCourseForm = ({isPro}:Props) => {
   });
 
   const onSubmit = async (data: InputData) => {
-    
-  
     try {
-      const response = await createChapters(data);
-      if ('data' in response) {
-        const { course_id } = response.data;
-        toast.success(" successfully Course created")
-        router.push(`/create/${course_id}`);
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong")
+      const response = await createChapters(data).unwrap();
+      const { course_id } = response;
+      toast.success("Successfully created course");
+      router.push(`/create/${course_id}`);
+    } catch (error: any) {
+      const errorMessage = error.data?.error || "Something went wrong";
+      toast.error(errorMessage);
     }
   };
-  
+
   return (
     <div className="w-full">
       <Form {...form}>
@@ -57,9 +53,9 @@ const CreateCourseForm = ({isPro}:Props) => {
               <FormItem className="flex flex-col items-start w-full sm:items-center sm:flex-row">
                 <FormLabel className="flex-[1] text-xl">Title</FormLabel>
                 <div className="flex flex-col w-[86%] gap-3">
-                <FormControl className="flex-[6]">
-                  <Input placeholder="Enter the main topic of the course" {...field} />
-                </FormControl>
+                  <FormControl className="flex-[6]">
+                    <Input placeholder="Enter the main topic of the course" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </div>
               </FormItem>
@@ -83,10 +79,10 @@ const CreateCourseForm = ({isPro}:Props) => {
                     <FormItem className="flex flex-col items-start w-full sm:items-center sm:flex-row">
                       <FormLabel className="flex-[1] text-xl">Unit {index + 1}</FormLabel>
                       <div className="flex flex-col w-[86%] gap-3">
-                      <FormControl className="flex-[6]">
-                        <Input placeholder="Enter subtopic of the course" {...field} />
-                      </FormControl>
-                      <FormMessage/>
+                        <FormControl className="flex-[6]">
+                          <Input placeholder="Enter subtopic of the course" {...field} />
+                        </FormControl>
+                        <FormMessage />
                       </div>
                     </FormItem>
                   )}
@@ -121,12 +117,11 @@ const CreateCourseForm = ({isPro}:Props) => {
             <Separator className="flex-[1]" />
           </div>
           <Button disabled={isLoading} type="submit" className="w-full mt-6" size="lg">
-					{isLoading ? <Spinner sm /> : `Let's Go!`}
+            {isLoading ? <Spinner sm /> : `Let's Go!`}
           </Button>
         </form>
       </Form>
-      {!isPro &&  <SubscriptionAction/>}
-     
+      {!isPro && <SubscriptionAction />}
     </div>
   );
 };
