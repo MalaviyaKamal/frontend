@@ -52,12 +52,12 @@ const CoursePage = ({ params: { slug } }: Props) => {
   const prevChapter = unit.chapter[chapterIndex - 1];
 
   return (
-    <div className="flex flex-col md:flex-row w-full justify-between ">
+    <div className="flex flex-col md:flex-row w-full h-[800px] justify-between ">
        {/* {course?.name} */}
-      <div className="w-full mr-11 md:m-0 md:w-1/4">
+      <div className="w-full h-full overflow-auto mr-11 md:m-0 md:w-1/4">
         <CourseSideBar course={course} currentChapterId={chapter.id} />
       </div >
-      <div className="w-full mr-11 md:m-0 md:w-1/2">
+      <div className="w-full h-full overflow-auto mr-11 md:m-0 md:w-1/2">
         <div className="px-8">
           <div className="flex">
             <MainVideoSummary
@@ -103,7 +103,7 @@ const CoursePage = ({ params: { slug } }: Props) => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/4 mr-11">
+      <div className="w-full h-full overflow-auto md:w-1/4 mr-11">
         <QuizCards chapter={chapter} />
       </div>
     </div>

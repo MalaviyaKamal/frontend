@@ -47,7 +47,7 @@ const courseApiSlice = apiSlice.injectEndpoints({
         body: { title, units },
       }),
     }),
-    retrieveCourse: builder.query<Course, void>({
+    retrieveCourse: builder.query<Course, void>({ 
       query: () => '/course/courseget/',
       providesTags: ["User"] 
     }),
@@ -62,7 +62,7 @@ const courseApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: { chapterId },
       }),
-      invalidatesTags:["User"]
+      // invalidatesTags:["User"]
     }),
     
   }),

@@ -17,7 +17,6 @@ export default function ChatHome() {
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center">
             <h1 className="mr-3 text-5xl font-semibold">Chat with any PDF</h1>
-            {/* <UserButton afterSignOutUrl="/" /> */}
           </div>
 {/* 
           <div className="flex mt-2">
@@ -43,7 +42,6 @@ export default function ChatHome() {
           <div className="w-full mt-4">
             {isAuthenticated ? (
               <FileUpload />
-            // <p>fileupload</p>
             ) : (
               <Link href="/dashboard">
                 <Button>

@@ -16,15 +16,7 @@ type Props = {
 
 const CreateChapters = ({ params: { courseId } }: Props) => {
   const { data: course, isLoading, error } = useRetrieveCourseByIdQuery(courseId);
-  // const [toastShown, setToastShown] = useState(false);
-// console.log(course)
-//   useEffect(() => {
-//     if (error && !toastShown) {
-//       toast.error(`Error: ${error}`);
-//       setToastShown(true);
-//     }
-//   }, [error, toastShown]);
-
+  
   if (isLoading) {
     return (
       <div className="flex justify-center my-8">
