@@ -49,12 +49,11 @@ const courseApiSlice = apiSlice.injectEndpoints({
     }),
     retrieveCourse: builder.query<Course, void>({ 
       query: () => '/course/courseget/',
-      providesTags: ["User"] 
+      // providesTags: ["User"] 
     }),
     retrieveCourseById: builder.query<Course,void>({
       query: (courseId) => `/course/courseget/${courseId}/`,
       providesTags: ["User"] 
-
     }),
     getChapterInfo: builder.mutation({
       query: ({ chapterId }: { chapterId: string }) => ({
@@ -62,7 +61,7 @@ const courseApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: { chapterId },
       }),
-      // invalidatesTags:["User"]
+      invalidatesTags:["User"]
     }),
     
   }),

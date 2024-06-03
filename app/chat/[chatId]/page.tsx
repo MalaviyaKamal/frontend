@@ -1,49 +1,59 @@
 'use client';
 import ChatSideBar from "@/components/chatpdf/ChatSiderBar";
 import PDFViewer from "@/components/chatpdf/PDFViewer";
-import { redirect } from "next/navigation";
+import ChatComponent from "@/components/chatpdf/ChatComponent";
 import React from "react";
 import { useChatsPdfQuery } from "@/redux/features/chatpdfApiSlice";
+import { redirect } from "next/navigation";
 
 interface Chat {
-    id: number;
-    file: string;
-    pdf_name: string;
-};
-  
+  id: number;
+  file: string;
+  pdf_name: string;
+  uploaded_at: string;
+  user: number;
+}
+
 type Props = {
-    params: {
-        chatId: string;
-    };
+  params: {
+    chatId: string;
+  };
 };
 
 const ChatPage = ({ params: { chatId } }: Props) => {
-    const { data: chats, isLoading, error } = useChatsPdfQuery();
-    console.log("data",chats)
+  const { data: chats, isLoading, error } = useChatsPdfQuery();
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+  console.log(chats)
 
-    if (error) {
-        console.log("error ",error)
-        return <div>Error occured</div>; 
-    }
-    return (
-        <div className="flex w-full h-full overflow-scroll">
-            <div className="flex w-full h-full overflow-scroll">
-                <div className="flex-[1] max-w-xs">
-                    <ChatSideBar chats={chats}  chatId={parseInt(chatId)} />
-                </div>
-                <div className="max-h-screen p-4 oveflow-scroll flex-[5]">
-                    {/* <PDFViewer pdf_url={currentChat?.file || ""} /> */}
-                </div>
-                {/* <div className="flex-[3] border-l-4 border-l-slate-200">
-                    <ChatComponent chatId={parseInt(chatId)} />
-                </div> */}
-            </div>
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    console.log("error", error);
+    return <div>Error occurred</div>; 
+  }
+
+  if (!chats || !chats.find((chat: Chat) => chat.id === parseInt(chatId))) {
+    return redirect("/");
+  }
+
+  const currentChat = chats.find((chat: Chat) => chat.id === parseInt(chatId));
+
+  return (
+    <div className="flex w-full h-screen">
+        <div className="w-1/4 h-full overflow-y-scroll">
+          <ChatSideBar chats={chats} chatId={parseInt(chatId)} />
         </div>
-    );
+        <div className="w-1/2 h-full  overflow-hidden">
+          <PDFViewer pdf_url={`http://127.0.0.1:8000/${currentChat.file}`} />
+        </div>
+        {/* Uncomment and adjust the following section if needed */}
+        <div className="w-1/3 h-full border-l-4 overflow-y-scroll border-l-slate-200">
+          <ChatComponent chatId={parseInt(chatId)} />
+        </div>
+    </div>
+  );
 };
 
 export default ChatPage;

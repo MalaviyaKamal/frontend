@@ -29,6 +29,7 @@ const chatPdfApiSlice = apiSlice.injectEndpoints({
             query: () => ({
                 url: '/chatpdf/chat/',
                 method: 'GET',
+                
             })
         })
     }),

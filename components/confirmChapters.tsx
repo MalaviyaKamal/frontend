@@ -7,45 +7,48 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface Chapter {
-    id: string;
-    name: string;
-    youtubeSearchQuery: string;
-    videoId: string | null;
-    summary: string | null;
+  id: string;
+  name: string;
+  youtubeSearchQuery: string;
+  videoId: string | null;
+  summary: string | null;
 }
 
 interface Units {
-    id: string;
-    name: string;
-    chapter: Chapter[];
+  id: string;
+  name: string;
+  chapter: Chapter[];
 }
 
 interface Course {
-    id: string;
-    name: string;
-    image: string;
-    user?: number | any;
-    units: Units[] | any;
+  id: string;
+  name: string;
+  image: string;
+  user?: number | any;
+  units: Units[] | any;
 }
 
 const ConfirmChapters = ({ course }: { course: Course | undefined }) => {
   const [loading, setLoading] = React.useState(false);
   const chapterRefs: Record<string, React.RefObject<ChapterCardHandler>> = {};
 
+  // Create refs for each chapter
   course && course.units.forEach((unit: Units) => {
     unit && unit.chapter?.forEach((chapter: Chapter) => {
       chapterRefs[chapter.id] = React.useRef(null);
     });
   });
 
-  const [completedChapters, setCompletedChapters] = React.useState<Set<string>>(new Set());
+  const [completedChapters, setCompletedChapters] = React.useState<Set<String>>(new Set());
 
+  // Calculate total number of chapters
   const totalChaptersCount = React.useMemo(() => {
     return course?.units.reduce((acc: any, unit: Units) => {
       return acc + (unit.chapter ? unit.chapter.length : 0);
     }, 0) || 0;
   }, [course?.units]);
 
+  // Trigger loading chapters sequentially
   const triggerLoadSequentially = async () => {
     setLoading(true);
     for (const ref of Object.values(chapterRefs)) {
@@ -58,6 +61,7 @@ const ConfirmChapters = ({ course }: { course: Course | undefined }) => {
 
   return (
     <div className="w-full mt-4">
+      {/* Render units and chapters */}
       {course?.units.map((unit: Units, unitIndex: number) => (
         <div key={unit.id} className="mt-5">
           <h2 className="text-sm uppercase text-secondary-foreground/60">Unit {unitIndex + 1}</h2>
@@ -76,13 +80,16 @@ const ConfirmChapters = ({ course }: { course: Course | undefined }) => {
           </div>
         </div>
       ))}
+      {/* Navigation buttons */}
       <div className="flex items-center justify-center mt-4">
         <Separator className="flex-[1]" />
         <div className="flex items-center mx-4">
+          {/* Back button */}
           <Link href="/create" className={buttonVariants({ variant: "secondary" })}>
             <ChevronLeft className="w-4 h-4 mr-2" strokeWidth={4} />
             Back
           </Link>
+          {/* Generate utton */}
           {totalChaptersCount === completedChapters.size ? (
             <Link className={buttonVariants({ className: "ml-4 font-semibold" })} href={`/course/${course?.id}/0/0`}>
               Save & Continue
