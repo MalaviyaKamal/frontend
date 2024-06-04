@@ -9,6 +9,15 @@ interface Chat {
   file: string;
   pdf_name: string;
 };
+interface Message{
+
+  id: number;
+  chat: number;
+  content: string;
+  role: "user" | "system"; 
+  created_at: string; 
+
+}
 const chatPdfApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         uploadPdf: builder.mutation({
@@ -16,21 +25,25 @@ const chatPdfApiSlice = apiSlice.injectEndpoints({
                 url: '/chatpdf/upload/',
                 method: 'POST',
                 body: formData,
-            }),
+            }),invalidatesTags:["User"]
         }),
         createChat: builder.mutation({
-            query: ({ formData }) => ({
-                url: '/chatpdf/createchat/',
+            query: ({chatId,question}) => ({
+                url: `/chatpdf/ask/${chatId}/`,
                 method: 'POST',
-                body: formData,
+                body: question,
+            }),invalidatesTags:["User"]
+        }),
+        getChatMessages:builder.query<Message,void>({
+            query: (chatId) => ({
+                url: `/chatpdf/messages/${chatId}/`,
             }),
+            providesTags: ["User"] 
         }),
         chatsPdf: builder.query<Chat, void>({
             query: () => ({
-                url: '/chatpdf/chat/',
-                method: 'GET',
-                
-            })
+                url: '/chatpdf/chat/',                
+            }),
         })
     }),
 });
@@ -38,5 +51,6 @@ const chatPdfApiSlice = apiSlice.injectEndpoints({
 export const {
     useUploadPdfMutation,
     useCreateChatMutation,
-    useChatsPdfQuery
+    useChatsPdfQuery,
+    useGetChatMessagesQuery
 } = chatPdfApiSlice;

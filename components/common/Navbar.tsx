@@ -24,6 +24,9 @@ export default function Navbar() {
       <NavLink href="/create" isMobile={isMobile} className="mt-1.5 transition-all px-0 hover:-translate-y-[2px] md:block">
         Create Course
       </NavLink>
+      <NavLink href="/chat" isMobile={isMobile} className="mt-1.5 transition-all px-0 hover:-translate-y-[2px] md:block">
+        Chat
+      </NavLink>
 	   <NavLink isSelected={isSelected("/dashboard")} isMobile={isMobile} href="/dashboard" className="mt-1.5 transition-all px-0 hover:-translate-y-[2px] md:block">
 	   {/* <NavLink  isMobile={isMobile} href="/dashboard " className="mt-1.5 transition-all px-0 hover:-translate-y-[2px] md:block"> */}
         {/* <img

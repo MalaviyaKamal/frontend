@@ -1,13 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { LoginForm } from '@/components/forms';
-// import type { Metadata } from 'next';
 import { useTheme } from 'next-themes';
-
-// export const metadata: Metadata = {
-// 	title: 'Full Auth | Login',
-// 	description: 'Full Auth login page',
-// };
 
 export default function Page() {
 	const { theme } = useTheme(); 
@@ -16,7 +10,7 @@ export default function Page() {
 		<div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
 			<div className='sm:mx-auto sm:w-full sm:max-w-sm'>
 				<h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight '>
-					Registration in to your account
+				      Login in to your account
 				</h2>
 			</div>
 

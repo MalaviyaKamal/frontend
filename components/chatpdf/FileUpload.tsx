@@ -35,27 +35,21 @@ const FileUpload = () => {
         const formData = new FormData();
         formData.append('file', file);
         const data = await uploadpdf({ formData }).unwrap();
-        
-        if (!data?.id) {
-          toast.error('Error uploading file kamal');
+        console.log(data?.error)
+        // if (!data?.id) {
+        //   toast.error('Error not found');
+        //   return;
+        // }
+        if(data?.error){
+          toast.error(data.error);
           return;
         }
         console.log("bhdcjwbc",data)
         toast.success(data.message);
         router.push(`/chat/${data.id}`);
 
-        // const chatData: Chat = {
-        //   file_key: data.file_key,
-        //   pdf_name: data.pdf_name,
-        //   pdf_url: data.pdf_url
-        // };
-        // const response = await createChat({ formData: chatData }).unwrap();
-        // console.log("bhdcjwbc",response)
-        // toast.success(response.message);
-        // router.push(`/chat/${response.chat_id}`);
-
       } catch (error) {
-        toast.error('Error uploading file');
+        toast.error('Error uploading file',);
         console.error(error);
       } finally {
         setUploading(false);
@@ -65,6 +59,7 @@ const FileUpload = () => {
 
   return (
     <div className="p-2 bg-white rounded-xl">
+
       <div
         {...getRootProps({
           className: 'border-dashed border-2 rounded-xl cursor-pointer bg-gray-50 py-8 flex justify-center items-center flex-col',
