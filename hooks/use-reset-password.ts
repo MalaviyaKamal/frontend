@@ -28,7 +28,6 @@ export default function useResetPassword() {
 		resetPassword(data.email )
 			.unwrap()
 			.then((response) => {
-				console.log('response',response);
 				toast.success('Request sent, check your email for reset link');
 				// dispatch(setAuth());
 				// Cookies.set('loggedIn', 'true', { expires: 1 });
@@ -36,8 +35,6 @@ export default function useResetPassword() {
 				// router.push('/dashboard');
 			})
 			.catch((err) => {
-				console.log('err',err);
-				console.log('err', err);
 				if (err.data.email) {
 					setError("email", { type: "manual", message: err.data.email.join('||') });
 				}

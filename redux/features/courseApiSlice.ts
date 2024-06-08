@@ -34,6 +34,7 @@ interface Course {
   image: string;
   user?: number | any;
   units: Units[] | any;
+  
 }
 
 
@@ -47,9 +48,12 @@ const courseApiSlice = apiSlice.injectEndpoints({
         body: { title, units },
       }),
     }),
-    retrieveCourse: builder.query<Course, void>({ 
-      query: () => '/course/courseget/',
-      // providesTags: ["User"] 
+    // retrieveCourse: builder.query<Course, void>({ 
+    //   query: () => '/course/courseget/',
+    //   // providesTags: ["User"] 
+    // }),
+    retrieveCourse: builder.query<Course, { search?: string, page?: number }>({
+      query: ({ search = '', page = 1 }) => `/course/courseget/?search=${search}&page=${page}`,
     }),
     retrieveCourseById: builder.query<Course,void>({
       query: (courseId) => `/course/courseget/${courseId}/`,

@@ -12,14 +12,14 @@ type Props = {
   currentChapterId: string;
 };
 
-interface Question {
+export interface Question {
   id: string;
   question: string;
   answer: string;
   options: string;
 }
 
-interface Chapter {
+export interface Chapter {
   id: string;
   name: string;
   youtubeSearchQuery: string;
@@ -28,13 +28,13 @@ interface Chapter {
   question: Question[];
 }
 
-interface Units {
+export interface Units {
   id: string;
   name: string;
   chapter: Chapter[];
 }
 
-interface Course {
+export interface Course {
   id: string;
   name: string;
   image: string;

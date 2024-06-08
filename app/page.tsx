@@ -62,7 +62,7 @@ export default function Page() {
                     </Button>
                   </Link>
                   <Link href="/auth/register" passHref>
-                    <Button className="text-sm font-semibold leading-6 text-gray-900">
+                    <Button className="text-sm font-semibold leading-6 bg-indigo-600">
                       Or create an account{" "}
                       <span aria-hidden="true">&rarr;</span>
                     </Button>

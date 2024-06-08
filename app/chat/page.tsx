@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link";
-import { ArrowRight, LogIn } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useAppSelector } from "@/redux/hooks";
 import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/chatpdf/FileUpload";
@@ -9,10 +9,16 @@ import { Spinner } from "@/components/common";
 import SubscriptionAction from "@/components/SubscriptionAction";
 import { useChatsPdfQuery } from "@/redux/features/chatpdfApiSlice";
 
-type Props = { isPro: boolean }
+interface Chat {
+  id: number;
+  file: string;
+  pdf_name: string;
+  uploaded_at: string;
+  user: number;
+}
 
 export default function ChatHome() {
-  const { data: chats, isLoading: chatLoad } = useChatsPdfQuery();
+  const { data: chats, isLoading: chatLoad, error: chatError } = useChatsPdfQuery();
   const { data: apiResponse, error, isLoading } = useCheckSubscriptionQuery();
 
   if (isLoading || chatLoad) {
@@ -24,12 +30,17 @@ export default function ChatHome() {
   }
 
   if (error) {
-      console.error("Error fetching subscription:", error);
+    //   console.error("Error fetching subscription:", error);
       return <div>Error fetching subscription</div>;
   }
 
+  if (chatError) {
+    //   console.error("Error fetching chats:", chatError);
+      return <div>Error fetching chats</div>;
+  }
+
   const isPro = apiResponse?.isValid || false;
-  const firstChat = chats?.length > 0 ? chats[0] : null;
+  const firstChat = Array.isArray(chats) && chats.length > 0 ? chats[0] : null;
 
   return (
       <>
@@ -64,3 +75,4 @@ export default function ChatHome() {
       </>
   );
 }
+

@@ -1,35 +1,8 @@
+
 import Link from "next/link";
 import React from "react";
+import {Course,Units } from "./courseSideBar"
 
-interface Question {
-  id: string;
-  question: string;
-  answer: string;
-  options: string;
-}
-
-interface Chapter {
-  id: string;
-  name: string;
-  youtubeSearchQuery: string;
-  videoId: string | null;
-  summary: string | null;
-  question: Question[];
-}
-
-interface Units {
-  id: string;
-  name: string;
-  chapter: Chapter[];
-}
-
-interface Course {
-  id: string;
-  name: string;
-  image: string;
-  user?: number | any;
-  units: Units[] | any;
-}
 
 const GalleryCourseCard = ({ course }: { course: Course | undefined }) => {
   return (
@@ -75,5 +48,3 @@ const GalleryCourseCard = ({ course }: { course: Course | undefined }) => {
 };
 
 export default GalleryCourseCard;
-
-

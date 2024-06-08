@@ -5,7 +5,6 @@ import { useLoginMutation } from '@/redux/features/authApiSlice';
 import { useForm } from "react-hook-form";
 import { setAuth } from '@/redux/features/authSlice';
 import { toast } from 'react-toastify';
-import Cookies from 'js-cookie';
 
 
 export type FormData = {
@@ -35,7 +34,7 @@ export default function useLogin() {
 				dispatch(setAuth());
 				// Cookies.set('loggedIn', 'true', { expires: 1 });
 				toast.success('Logged in');
-				router.push('/dashboard');
+				router.push('/gallery');
 			})
 			.catch((err) => {
 				console.log('err',err);

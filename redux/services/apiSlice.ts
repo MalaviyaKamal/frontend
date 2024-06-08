@@ -21,7 +21,6 @@ const baseQueryWithReauth: BaseQueryFn<
 	FetchBaseQueryError
 > = async (args, api, extraOptions) => {
 	await mutex.waitForUnlock();
-	console.log("api test",args,api,extraOptions);
 	let result = await baseQuery(args, api, extraOptions);
 
 	if (result.error && result.error.status === 401) {

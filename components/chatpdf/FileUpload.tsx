@@ -18,7 +18,6 @@ const FileUpload = () => {
   const router = useRouter();
   const [uploading, setUploading] = useState(false);
   const [uploadpdf, { isLoading: isUploading }] = useUploadPdfMutation();
-  // const [createChat, { isLoading: isCreatingChat }] = useCreateChatMutation();
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: { 'application/pdf': ['.pdf'] },
@@ -35,7 +34,7 @@ const FileUpload = () => {
         const formData = new FormData();
         formData.append('file', file);
         const data = await uploadpdf({ formData }).unwrap();
-        console.log(data?.error)
+        // console.log(data?.error)
         // if (!data?.id) {
         //   toast.error('Error not found');
         //   return;
@@ -44,13 +43,13 @@ const FileUpload = () => {
           toast.error(data.error);
           return;
         }
-        console.log("bhdcjwbc",data)
+        // console.log("bhdcjwbc",data)
         toast.success(data.message);
         router.push(`/chat/${data.id}`);
 
       } catch (error) {
         toast.error('Error uploading file',);
-        console.error(error);
+        // console.error(error);
       } finally {
         setUploading(false);
       }

@@ -18,7 +18,7 @@ type Props = {
 const CoursePage = ({ params: { slug } }: Props) => {
   const [courseId, unitIndexParam, chapterIndexParam] = slug;
   const { data: course, isLoading, isError } = useRetrieveCourseByIdQuery(courseId);
-  console.log("course",course)
+  // console.log("course",course)
 
   if (isLoading) {
     return (
@@ -29,7 +29,7 @@ const CoursePage = ({ params: { slug } }: Props) => {
   }
 
   if (isError) {
-    console.error("Error fetching course:", isError);
+    // console.error("Error fetching course:", isError);
     return <div>Error fetching course data. Please try again later.</div>;
   }
 

@@ -6,11 +6,11 @@ import MessageList from "@/components/chatpdf/MessageList";
 import { useCreateChatMutation, useGetChatMessagesQuery } from "@/redux/features/chatpdfApiSlice";
 import { toast } from "react-toastify";
 
-type Props = { chatId: number };
+type Props = { chatId: number | any };
 
 const ChatComponent = ({ chatId }: Props) => {
     const [input, setInput] = useState("");
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState<any>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isCreatingChat, setIsCreatingChat] = useState(false);
 
@@ -34,11 +34,11 @@ const ChatComponent = ({ chatId }: Props) => {
         setIsCreatingChat(true);
 
         try {
-            const { data } = await createChat({ chatId, question: { question: input } });
+            const { data }:any = await createChat({ chatId, question: { question: input } });
             setMessages([...messages, { question: input, response: data.response }]);
             setInput("");
         } catch (error) {
-            console.error("Error sending message:", error);
+            // console.error("Error sending message:", error);
             toast.error("Error sending message");
         } finally {
             setIsCreatingChat(false);

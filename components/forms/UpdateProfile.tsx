@@ -19,7 +19,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({ user, onSuccess }) => {
 
   const [updateUser, { isLoading, error }] = useUpdateUserMutation();
 
-console.log("update rrsp err", error)
+// console.log("update rrsp err", error)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const { name, value, files } = e.target;
@@ -37,7 +37,7 @@ console.log("update rrsp err", error)
     try {
       const formDataToSend = new FormData();
       if (formData.first_name) {
-        console.log("appendeing first namew")
+        // console.log("appendeing first namew")
         formDataToSend.append("first_name", formData.first_name);
       }
       if (formData.last_name) {
@@ -48,15 +48,15 @@ console.log("update rrsp err", error)
       }
   
       const response = await updateUser(formDataToSend);
-      if (response.error) {
-        console.error("Error updating profile:", response.error);
+      if ('error' in response) {
+        // console.error("Error updating profile:", response.error);
         toast.error("Failed to update profile. Please try again.");
       } else {
         toast.success("Profile updated successfully");
         onSuccess();
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
+      // console.error("Error updating profile:", error);
       toast.error("An unexpected error occurred. Please try again later.");
     }
   };

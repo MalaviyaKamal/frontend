@@ -11,7 +11,7 @@ const UserAvatar = () => {
 
 
     if (isLoading || isFetching) {
-        console.log("error user",error)
+        // console.log("error user",error)
         return (
             <div className='flex justify-center my-8'>
                 <Spinner lg />

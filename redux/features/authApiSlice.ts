@@ -10,7 +10,6 @@ interface User {
   image: string;
 }
 
-
 const authApiSlice = apiSlice.injectEndpoints({
   
   endpoints: builder => ({

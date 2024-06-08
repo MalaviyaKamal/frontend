@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import { toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
-import { Chapter } from "./confirmChapters"; 
+import { Chapter } from "./confirmChapters";
 import React from "react";
 import { useGetChapterInfoMutation } from "@/redux/features/courseApiSlice"; 
 
@@ -18,12 +18,12 @@ export type ChapterCardHandler = {
 };
 
 const ChapterCard = React.forwardRef<ChapterCardHandler, Props>(
-  ({ chapter, chapterIndex, setCompletedChapters, completedChapters }, ref) => {
+  ({ chapter, chapterIndex, setCompletedChapters, completedChapters }:any, ref) => {
     const [success, setSuccess] = React.useState<boolean | null>(null);
     const [getChapterInfo, { isLoading }] = useGetChapterInfoMutation();
 
     const addChapterIdToSet = React.useCallback(() => {
-      setCompletedChapters((prev) => {
+      setCompletedChapters((prev:any) => {
         const newSet = new Set(prev);
         newSet.add(chapter.id);
         return newSet;
@@ -52,13 +52,13 @@ const ChapterCard = React.forwardRef<ChapterCardHandler, Props>(
             addChapterIdToSet();
           } else {
             const { error } = response;
-            console.error(error);
+            // console.error(error);
             setSuccess(false);
             // toast.error(`There was an error loading your chapter: ${error}`);
             addChapterIdToSet();
           }
         } catch (error) {
-          console.error(error);
+          // console.error(error);
           setSuccess(false);
           toast.error(`There was an error loading your chapter: ${error}`);
           addChapterIdToSet();

@@ -20,12 +20,11 @@ const CreatePage = (props: Props) => {
     }
   
     if (error) {
-      console.error("Error fetching subscription:", error);
+      // console.error("Error fetching subscription:", error);
       return <div>Error fetching subscription</div>;
     }
   
     const isPro = apiResponse?.isValid || false;
-    const nextBillingDate = apiResponse?.next_billing_date || '';
   
   return (
     <div className="flex flex-col items-start max-w-xl px-8 mx-auto my-16 sm:px-0">

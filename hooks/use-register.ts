@@ -36,7 +36,6 @@ export default function useRegister() {
 				router.push('/auth/login');
 			})
 			.catch((err) => {
-				console.log('err', err);
 				if (err.data.email) {
 					setError("email", { type: "manual", message: err.data.email.join('||') });
 				}

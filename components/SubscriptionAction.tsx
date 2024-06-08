@@ -12,8 +12,8 @@ import TermsModal from "./TermsModal";
 type Props = {};
 
 const SubscriptionAction = (props: Props) => {
-  const { data: user, isLoading: userLoading, isError: userError } = useRetrieveUserQuery();
-  const { data: subscriptionData, isLoading: subscriptionLoading, isError: subscriptionError } = useSubscriptionQuery();
+  const { data: user, isLoading: userLoading, isError: userError }:any = useRetrieveUserQuery();
+  const { data: subscriptionData, isLoading: subscriptionLoading, isError: subscriptionError }:any = useSubscriptionQuery();
 
   const [loading, setLoading] = React.useState(false);
   const [isTermsModalOpen, setIsTermsModalOpen] = React.useState(false);

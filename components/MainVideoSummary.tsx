@@ -1,25 +1,6 @@
 import React from "react";
-interface Question{
-    id: string;
-    question:string;
-    answer:string;
-    options:string;
-  }
-  
-  interface Chapter {
-    id: string;
-    name: string;
-    youtubeSearchQuery: string;
-    videoId: string | null;
-    summary: string | null;
-    question:Question[]
-  }
-  
-  interface Units {
-    id: string;
-    name: string;
-    chapter: Chapter[];
-  }
+import { Units,Chapter,Question } from "./courseSideBar";
+
 
 type Props = {
   chapter: Chapter;

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { RegisterForm } from '@/components/forms';
-import type { Metadata } from 'next';
 
+import type { Metadata } from 'next';
 export const metadata: Metadata = {
 	title: 'Full Auth | Register',
 	description: 'Full Auth register page',
@@ -18,7 +18,7 @@ export default function Page() {
 
 			<div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
 				<RegisterForm />
-
+				
 				<p className='mt-10 text-center text-sm '>
 					Already have an account?{' '}
 					<Link

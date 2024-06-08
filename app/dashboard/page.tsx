@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useRetrieveUserQuery, useDeleteUserMutation } from "@/redux/features/authApiSlice";
 import { useCheckSubscriptionQuery } from "@/redux/features/subscriptionApiSlice";
 import { List, Spinner } from "@/components/common";
-import SubscriptionButton from "@/components/SubscriptionButton";
 import { useTheme } from "next-themes";
 import SubscriptionAction from "@/components/SubscriptionAction";
 import DeleteAccountModal from "@/components/forms/DeleteAccountModal";
@@ -12,6 +11,14 @@ import { useRouter } from "next/navigation";
 import UpdateProfileModal from "@/components/forms/UpdateProfileModal";
 import { logout as setLogout } from "@/redux/features/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
+
+interface User {
+  first_name?: string;
+  last_name?: string;
+  image?: string;
+  email?: string;
+  credits?: number;
+}
 
 export default function DashboardPage() {
   const { theme } = useTheme();
@@ -22,7 +29,8 @@ export default function DashboardPage() {
   const [isUpdateProfileModalOpen, setUpdateProfileModalOpen] = useState(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
-  console.log("use data",user)
+  // console.log("use data", user);
+
   if (isLoading || isFetching || loadingsub) {
     return (
       <div className="flex justify-center my-8">
@@ -32,7 +40,7 @@ export default function DashboardPage() {
   }
 
   if (errorsub) {
-    console.error("Error fetching subscription:", errorsub);
+    // console.error("Error fetching subscription:", errorsub);
     return <div>Error fetching subscription</div>;
   }
 
@@ -43,7 +51,6 @@ export default function DashboardPage() {
     try {
       await deleteUser({});
       dispatch(setLogout());
-      // refetchUser();
       refetchSubscription();
     } catch (error) {
       console.error("Error deleting account:", error);
@@ -57,16 +64,17 @@ export default function DashboardPage() {
   const handleCloseUpdateProfileModal = () => {
     setUpdateProfileModalOpen(false);
   };
-  console.log("credits",user?.credits )
+
+  // console.log("credits", user?.credits);
   const config = [
     { label: "Image", value: user?.image },
     { label: "First Name", value: user?.first_name },
     { label: "Last Name", value: user?.last_name },
     { label: "Email", value: user?.email },
-    { label: "Credits", value: isPro ? "Unlimited" : (user?.credits !== undefined ? user.credits.toString() : undefined) },
+    { label: "Credits", value: isPro ? "Unlimited" : (user?.credits !== undefined ? user.credits.toString() : "") },
     { label: "Subscription Status", value: isPro ? "Pro User" : "Free User" },
     isPro ? { label: "Next Billing Date", value: nextBillingDate } : null,
-  ].filter((item) => item !== null);
+  ].filter((item): item is { label: string; value: string } => item !== null && item.value !== undefined);
 
   return (
     <>
@@ -88,13 +96,16 @@ export default function DashboardPage() {
           onClose={() => setDeleteModalOpen(false)}
           onConfirm={handleDeleteAccount}
         />
-        <UpdateProfileModal
-          isOpen={isUpdateProfileModalOpen}
-          onClose={handleCloseUpdateProfileModal}
-          user={user}
-        />
+        {user && (
+          <UpdateProfileModal
+            isOpen={isUpdateProfileModalOpen}
+            onClose={handleCloseUpdateProfileModal}
+            user={user}
+          />
+        )}
       </main>
       <div className="mx-auto max-w-7xl">{!isPro && <SubscriptionAction />}</div>
     </>
   );
 }
+

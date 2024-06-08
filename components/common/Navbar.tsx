@@ -34,7 +34,7 @@ export default function Navbar() {
           src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           alt=""
         /> */}
-        dashboard
+        Dashboard
       </NavLink>
 	    <UserAccountNav />
      
@@ -85,9 +85,7 @@ export default function Navbar() {
                   <p className="rounded-lg border-2 border-b-4 border-r-4 border-black px-2 py-1 text-xl font-bold transition-all hover:-translate-y-[2px] md:block dark:border-white">
                     Learning Journey
                   </p>
-                  {/* <div className='relative inset-0 grid-colo-6 justify-center items-center'>
-    										<Image src={image1} alt='Learning Journey' className='w-24 h-14' />
-										</div> */}
+                 
                 </NavLink>
               </div>
               <div className="flex flex-1 sm:absolute sm:right-0 items-center justify-center space-x-3 sm:items-stretch sm:justify-end">

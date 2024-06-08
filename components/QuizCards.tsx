@@ -4,22 +4,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Chapter,Question } from "./courseSideBar";
 
-interface Question {
-  id: string;
-  question: string;
-  answer: string;
-  options: string[]; 
-}
-
-interface Chapter {
-  id: string;
-  name: string;
-  youtubeSearchQuery: string;
-  videoId: string | null;
-  summary: string | null;
-  question: Question[]; 
-}
 
 type Props = {
   chapter: Chapter;
@@ -32,7 +18,7 @@ const QuizCards: React.FC<Props> = ({ chapter }) => {
   >({});
 
   React.useEffect(() => {
-    console.log("Chapter received:", chapter);
+    // console.log("Chapter received:", chapter);
   }, [chapter]);
 
   const checkAnswer = React.useCallback(() => {
@@ -50,8 +36,8 @@ const QuizCards: React.FC<Props> = ({ chapter }) => {
       <h1 className="text-2xl font-bold">Concept Check</h1>
       <div className="mt-2">
         {chapter.question?.length > 0 ? (
-          chapter.question.map((question) => {
-            const options = question.options.slice(1, -1).split(/', '/).map(item => item.replace(/^'/, '').replace(/'$/, ''));
+          chapter.question.map((question:any) => {
+            const options = question.options.slice(1, -1).split(/', '/).map((item:any) => item.replace(/^'/, '').replace(/'$/, ''));
            return( <div
               key={question.id}
               className={cn("p-3 mt-4 border border-secondary rounded-lg", {
@@ -70,7 +56,7 @@ const QuizCards: React.FC<Props> = ({ chapter }) => {
                     }));
                   }}
                 >
-                  {options&&options?.map((option, index) => (
+                  {options&&options?.map((option:any, index:any) => (
                     <div className="flex items-center space-x-2" key={index}>
                       <RadioGroupItem
                         value={option}

@@ -24,8 +24,8 @@ const MessageList = ({ messages, isLoading }: Props) => {
           <div
             key={message.id}
             className={cn("flex", {
-              "justify-end pl-10": message.role === "user",
-              "justify-start pr-10": message.role === "system",
+              "justify-end pl-10 my-3": message.role === "user",
+              "justify-start pr-10 my-3": message.role === "system",
             })}
           >
             <div

@@ -39,7 +39,7 @@ const ConfirmChapters = ({ course }: { course: Course | undefined }) => {
     });
   });
 
-  const [completedChapters, setCompletedChapters] = React.useState<Set<String>>(new Set());
+  const [completedChapters, setCompletedChapters] = React.useState<any>(new Set());
 
   // Calculate total number of chapters
   const totalChaptersCount = React.useMemo(() => {
@@ -80,16 +80,13 @@ const ConfirmChapters = ({ course }: { course: Course | undefined }) => {
           </div>
         </div>
       ))}
-      {/* Navigation buttons */}
       <div className="flex items-center justify-center mt-4">
         <Separator className="flex-[1]" />
         <div className="flex items-center mx-4">
-          {/* Back button */}
           <Link href="/create" className={buttonVariants({ variant: "secondary" })}>
             <ChevronLeft className="w-4 h-4 mr-2" strokeWidth={4} />
             Back
           </Link>
-          {/* Generate utton */}
           {totalChaptersCount === completedChapters.size ? (
             <Link className={buttonVariants({ className: "ml-4 font-semibold" })} href={`/course/${course?.id}/0/0`}>
               Save & Continue
