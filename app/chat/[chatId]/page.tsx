@@ -35,14 +35,10 @@ const ChatPage = ({ params: { chatId } }: Props) => {
   }
 
   if (!chats || !Array.isArray(chats) || !chats.find((chat: Chat) => chat.id === parseInt(chatId))) {
-    return redirect("/");
+    return redirect("/chat");
   }
 
   const currentChat = chats.find((chat: Chat) => chat.id === parseInt(chatId));
-
-  if (!currentChat) {
-    return redirect("/");
-  }
 
   return (
     <div className="flex flex-col md:flex-row w-full h-screen">

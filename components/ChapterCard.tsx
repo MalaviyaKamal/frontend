@@ -54,7 +54,6 @@ const ChapterCard = React.forwardRef<ChapterCardHandler, Props>(
             const { error } = response;
             // console.error(error);
             setSuccess(false);
-            // toast.error(`There was an error loading your chapter: ${error}`);
             addChapterIdToSet();
           }
         } catch (error) {

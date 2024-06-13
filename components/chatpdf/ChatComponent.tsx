@@ -68,7 +68,7 @@ const ChatComponent = ({ chatId }: Props) => {
                         type="text"
                         value={input}
                         onChange={handleInputChange}
-                        placeholder="TAsk any question..."
+                        placeholder="ask any question..."
                         className="w-full"
                         disabled={isCreatingChat}
                     />

@@ -20,6 +20,12 @@ interface Message{
 }
 const chatPdfApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
+        chatsPdf: builder.query<Chat, void>({
+            query: () => ({
+                url: '/chatpdf/chat/',                
+            }),
+            providesTags: ["User"] 
+        }),
         uploadPdf: builder.mutation({
             query: ({ formData }) => ({
                 url: '/chatpdf/upload/',
@@ -40,17 +46,13 @@ const chatPdfApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ["User"] 
         }),
-        chatsPdf: builder.query<Chat, void>({
-            query: () => ({
-                url: '/chatpdf/chat/',                
-            }),
-        })
+        
     }),
 });
 
 export const {
+    useChatsPdfQuery,
     useUploadPdfMutation,
     useCreateChatMutation,
-    useChatsPdfQuery,
     useGetChatMessagesQuery
 } = chatPdfApiSlice;
