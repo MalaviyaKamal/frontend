@@ -29,7 +29,7 @@ export default function useLogin() {
 		login({ email: data.email,password: data.password })
 			.unwrap()
 			.then((response) => {
-				console.log('response',response);
+				// console.log('response',response);
 
 				dispatch(setAuth());
 				// Cookies.set('loggedIn', 'true', { expires: 1 });
@@ -37,7 +37,7 @@ export default function useLogin() {
 				router.push('/gallery');
 			})
 			.catch((err) => {
-				console.log('err',err);
+				// console.log('err',err);
 				setError("root", { type: "manual", message: err.data.detail });
 				toast.error('Failed to log in');
 			});
